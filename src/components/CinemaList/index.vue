@@ -1,6 +1,7 @@
 <template>
   <div class="cinema_body">
-    <ul>
+    <Loading v-if="isLoading" />
+    <ul v-else>
       <li v-for="item in cinemaList" :key="item.id">
         <div>
           <span>{{ item.nm }}</span>
@@ -30,18 +31,26 @@ export default {
   name: "CinemaList",
   data() {
     return {
-      cinemaList: []
+      cinemaList: [],
+      isLoading: true,
+      prevCityId: -1
     };
   },
-  mounted() {
-    this.axios.get("/api/searchList?cityId=10&kw=a").then(res => {
+  activated() {
+    var cityId = this.$store.state.city.id;
+    if (this.prevCityID === cityId) {
+      return;
+    }
+     this.isLoading = true;
+    this.axios.get("/api/cinemaList?cityId="+cityId).then(res => {
       var msg = res.data.msg;
       console.log(res);
+      this.isLoading = false;
 
       if (msg === "ok") {
-        this.cinemaList = res.data.data.cinemas.list;
-        // this.isLoading = false;
-        // this.prevCityId = cityId;
+        this.cinemaList = res.data.data.cinemas;
+        this.isLoading = false;
+        this.prevCityId = cityId;
       }
     });
   },

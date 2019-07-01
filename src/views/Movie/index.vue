@@ -1,48 +1,49 @@
 <template>
   <div id="main">
-    <Header class="header" title="我的电影"/>
+    <Header class="header" title="我的电影" />
     <div id="content">
       <div class="movie_menu">
         <router-link tag="div" to="/movie/city" class="city_name">
-          <span>大连</span>
+          <span>{{$store.state.city.nm}}</span>
           <i class="iconfont icon-lower-triangle"></i>
         </router-link>
         <div class="hot_swtich">
           <router-link tag="div" to="/movie/nowPlaying" class="hot_item active">正在热映</router-link>
           <router-link tag="div" to="/movie/comingSoon" class="hot_item">即将上映</router-link>
         </div>
-        <router-link tag="div"  to="/movie/search" class="search_entry">
+        <router-link tag="div" to="/movie/search" class="search_entry">
           <i class="iconfont icon-sousuo"></i>
         </router-link>
       </div>
-      
     </div>
-     <keep-alive>
-      <router-view/>
+    <keep-alive>
+      <router-view />
     </keep-alive>
-    <TabBar/>
+    <TabBar />
+   
   </div>
 </template>
 
 <script>
 import Header from "../../components/Header";
 import TabBar from "../../components/TabBar";
+import MessageBox from "../../components/JS/MessageBox";
 export default {
   name: "Movie",
   components: {
     Header,
-    TabBar
+    TabBar,
+    MessageBox
   }
 };
 </script>
 
 <style scope="this api replaced by slot-scope in 2.5.0+">
-
 .header {
   z-index: 2;
 }
 #content {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 #content .movie_menu {
   width: 100%;

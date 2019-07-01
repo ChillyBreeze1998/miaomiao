@@ -39,7 +39,8 @@ export default {
   },
   watch: {
     message(newVal) {
-      this.axios.get("/api/searchList?cityId=10&kw=" + newVal).then(res => {
+       var cityId = this.$store.state.city.id;
+      this.axios.get("/api/searchList?cityId='+ cityId +'&kw=" + newVal).then(res => {
         console.log(res);
 
         let msg = res.data.msg;
